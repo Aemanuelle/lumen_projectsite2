@@ -46,15 +46,17 @@ Class UserController extends Controller {
 
     public function show ($id)
     {
-        //$user = User::findOrFail($id);
-        $user = User::where('userId', $id)->first();
+        $user = User::findOrFail($id);
+        return $this->successResponse($user);
+
+       /* $user = User::where('userId', $id)->first();
         if($user){
             return $this->successResponse($user);
         }
         {
             return $this->errorResponse('User ID Does Not Exists', Response::HTTP_NOT_FOUND);
         }
-       
+       */
     }
 
     public function update (Request $request, $id)
@@ -62,9 +64,19 @@ Class UserController extends Controller {
         //wla sa koy rules
 
         $user = User::findOrFail($id);
+        $user->fill($request->all());
+
+        //if no changes happen 
+        if ($user->isClean()){
+                 return $this->errorResponse('At least one value must change', Response::HTTP_UNPROCESSABLE);
+              }
+
+        $user->save();
+        return $this->successResponse($user);
+
         //$user = User::where('userId',$id)->first();
         //if($user){
-            $user->fill($request->all());
+        /*    $user->fill($request->all());
             if ($user->isClean()){
           //      return $this->errorResponse('At least one value must change', Response::HTTP_UNPROCESSABLE);
             }
@@ -73,13 +85,14 @@ Class UserController extends Controller {
         //}
         //{
             return $this->errorResponse('User ID Does Not Exists', Response::HTTP_NOT_FOUND);
-        //}
+        //} */
     }
 
     public function delete ($id)
     {
         $user = User::findOrFail($id);
             $user->delete();
-            return $this->successResponse($user);
+            return $this->successResponse('User ID Does Not Exist', Response::HTTP_NOT_FOUND);
     }
+
 }   
