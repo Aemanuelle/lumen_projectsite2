@@ -5,7 +5,7 @@
     use Illuminate\Database\Eloquent\Model;
 
     class User extends Model{
-        protected $table = 'tbluser';
+        protected $table = 'tbluser2';
 
         protected $fillable = [
             'username', 'password'

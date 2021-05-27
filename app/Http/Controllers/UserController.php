@@ -20,7 +20,7 @@ Class UserController extends Controller {
     public function getUsers()
     {
         $users = DB::connection('mysql')
-        ->select("Select * from tbluser");
+        ->select("Select * from tbluser2");
        
         //return response()->json($users, 200);
         return $this->successResponse($users);
