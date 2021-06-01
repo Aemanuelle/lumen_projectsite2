@@ -4,14 +4,15 @@
 
     use Illuminate\Database\Eloquent\Model;
 
-    class User extends Model{
-        protected $table = 'tbluser2';
+    class UserJob extends Model{
+        
+        protected $table = 'tbluser2job';
 
         protected $fillable = [
-            'username', 'password', 'jobid'
+            'jobid', 'jobname'
         ];
 
         public $timestamps = false;
-        protected $primaryKey = 'userId';
+        protected $primaryKey = 'jobid';
     
     }
